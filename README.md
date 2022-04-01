@@ -20,17 +20,17 @@
 
 ## items テーブル
 
-| Column          | Type        | Options                        |
-| --------------- | ----------- | ------------------------------ |
-| title           | string      | null: false                    |
-| content         | text        | null: false                    |
-| category        | string      | null: false                    |
-| status          | string      | null: false                    |
-| delivery_charge | string      | null: false                    |
-| region          | string      | null: false                    |
-| shipping_days   | string      | null: false                    |
-| price           | integer     | null: false                    |
-| user            | references  | null: false, foreign_key: true |
+| Column             | Type        | Options                        |
+| ------------------ | ----------- | ------------------------------ |
+| title              | string      | null: false                    |
+| content            | text        | null: false                    |
+| category_id        | integer     | null: false                    |
+| status_id          | integer     | null: false                    |
+| delivery_charge_id | integer     | null: false                    |
+| region_id          | integer     | null: false                    |
+| shipping_day_id    | integer     | null: false                    |
+| price              | integer     | null: false                    |
+| user               | references  | null: false, foreign_key: true |
 
 ### Association
 
@@ -60,7 +60,8 @@
 | address_number | string     | null: false                    |
 | building       | string     |                                |
 | phone_number   | string     | null: false                    |
+| purchases      | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
