@@ -3,11 +3,18 @@ require 'rails_helper'
 RSpec.describe PurchaseAddress, type: :model do
   describe '商品購入機能' do
     before do
-      @purchase = FactoryBot.build(:purchase_address)
+      user = FactoryBot.create(:user)
+      item = FactoryBot.create(:item)
+      @purchase = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
+      sleep 0.1
     end
 
     context '商品購入できる場合' do
-      it 'token,post_code,region_id,municipalities,address_number,phone_numberが存在すれば購入できる' do
+      it 'token,post_code,region_id,municipalities,address_number,building,phone_numberが存在すれば購入できる' do
+        expect(@purchase).to be_valid
+      end
+      it 'buildingが空でも購入できる' do
+        @purchase.building = ''
         expect(@purchase).to be_valid
       end
     end
@@ -56,6 +63,26 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase.region_id = '1'
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include("Region must be other than 1")
+      end
+      it 'phone_numberが9桁以下では購入できない' do
+        @purchase.phone_number = '000000000'
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'phone_numberが12桁以上では購入できない' do
+        @purchase.phone_number = '000000000000'
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'userが紐付いていないと購入できない' do
+        @purchase.user_id = nil
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていないと購入できない' do
+        @purchase.item_id = nil
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
