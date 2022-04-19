@@ -30,7 +30,7 @@
 | region_id          | integer     | null: false                    |
 | shipping_day_id    | integer     | null: false                    |
 | price              | integer     | null: false                    |
-| user               | references  | null: false, foreign_key: true |
+| user_id            | references  | null: false, foreign_key: true |
 
 ### Association
 
@@ -60,7 +60,7 @@
 | address_number | string     | null: false                    |
 | building       | string     |                                |
 | phone_number   | string     | null: false                    |
-| purchases      | references | null: false, foreign_key: true |
+| purchase_id    | references | null: false, foreign_key: true |
 
 ### Association
 
