@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :region
   belongs_to :shipping_day
   belongs_to :status
+  has_one :purchase
 
   validates :title, :content, :price, :image, presence: true
   validates :category_id, numericality: { other_than: 1 }
